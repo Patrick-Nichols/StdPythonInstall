@@ -1,6 +1,6 @@
 depends_on("conda")
 
-local conda_dir = CONDA_PREFIX
+local conda_dir = INSTALL_PREFIX
 
 if ( myShellType() == "csh" ) then
     local conda_cmd=conda_dir.."/etc/profile.d/conda.csh"

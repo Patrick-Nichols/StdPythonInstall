@@ -1,5 +1,5 @@
 
-local conda_dir = CONDA_PREFIX
+local conda_dir = INSTALL_PREFIX
 --prepend_path("PATH", pathJoin(conda_dir,"bin"))
 --prepend_path("PATH", pathJoin(conda_dir,"condabin"))
 if ( myShellType() == "csh") then
@@ -33,8 +33,8 @@ if (mode() == "unload") then
 end
 vars = {"__add_sys_prefix_to_path", "__conda_activate", "__conda_exe", "__conda_hashr", "__conda_reactivate",
         "_CE_CONDA", "_CONDA_EXE", "_CONDA_ROOT", "conda", "CONDA_EXE", "CONDA_PYTHON_EXE", "CONDA_SHLVL", "mamba",
-        "$}/apps/conda}", "CONDA_PROMPT_MODIFIER", "CONDA_DEFAULT_ENV",
-        "$}/apps/conda}_1","$}/apps/conda}_2"}
+        "CONDA_PREFIX", "CONDA_PROMPT_MODIFIER", "CONDA_DEFAULT_ENV",
+        "CONDA_PREFIX_1","CONDA_PREFIX_2"}
 for i, var in pairs(vars) do
     if (myShellType() == "sh") then
         execute {
