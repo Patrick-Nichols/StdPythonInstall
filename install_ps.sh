@@ -15,35 +15,72 @@ export NAME=`uname -n`
 echo "number of args = "
 echo $# 
 
-if [ $# == 2 ]
-  then
-    export MODULES_DIR=$2
-    export INSTALL_DIR=$1
-fi  
+export CONDA_PREFIX=/apps
+export MODULES_DIR=/apps/modules/modulefiles
+export SYSNAME=`uname -n`
+export ERR_MSG="usage is bash install_ps.sh conda_install_prefix modules_install_prefix"
+echo "system is "$SYSNAME
 
-echo $MODULES_DIR 
-echo $INSTALL_DIR
-
-if [ ! -d MODULES_DIR ] 
+if [ $# != 0 ] 
    then
-     mkdir -p $MODULES_DIR
-     mkdir -p $MODULES_DIR/conda
-     mkdir -p $MODULES_DIR/python
+     if [ $1 == "-h" -o $1 == "help" ]
+        then
+          echo $ERR_MSG
+          exit 1
+     fi
+     if [ $# != 2 ]
+        then
+           echo "wrong number of arguments"
+           echo $ERR_MSG
+           exit 2
+     fi  
 fi
- 
-if [ ! -d INSTALL_DIR ] 
-   then
-     mkdir -p $INSTALL_DIR
-fi 
 
+if [ $# == 2 ]
+   then
+      unset CONDA_PREFIX
+      unset MODULES_DIR
+      export CONDA_PREFIX=$1
+      export MODULES_DIR=$2
+else
+# try to find out what system this is and set variables
+   if [ ! -d /apps  ]
+      then
+         if [ SYSNAME == "gaea" ]
+            then
+	      unset CONDA_PREFIX
+	      unset MODULES_DIR
+              export CONDA_PREFIX=/sw/gaea-c5
+              export MODULES_DIR=/sw/gaea-c5/modules/modulefiles
+         else
+	      unset CONDA_PREFIX
+      	      unset MODULES_DIR
+              export CONDA_PREFIX=$PWD/apps
+              export MODULES_DIR=$PWD/modules/modulefiles
+              mkdir -p $PWD/apps
+              mkdir -p $PWD/modules
+              mkdir -p $PWD/modules/modulefiles
+              mkdir -p $PWD/modules/modulefiles/conda
+              mkdir -p $PWD/modules/modulefiles/python         
+         fi 
+   fi 
+fi
+
+echo "conda will be installed in "$CONDA_PREFIX"/conda"
+echo "modules will be installed in "$MODULES_DIR
+
+if [ -d $CONDA_PREFIX/conda ]
+   then
+     rm -fr $CONDA_PREFIX/conda
+fi
 
 wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
 
 echo "downloaded script"
-bash Miniforge3-$(uname)-$(uname -m).sh -b -p ${INSTALL_DIR}/conda
+bash Miniforge3-$(uname)-$(uname -m).sh -b -p ${CONDA_PREFIX}/conda
 echo "ran script"
 
-dir_str=$INSTALL_DIR/conda
+dir_str=$CONDA_PREFIX/conda
 sed -s "s|CONDA_PREFIX|${dir_str}|g" $PWD/modulefiles/conda/$VERS.lua > $MODULES_DIR/conda/$VERS.lua
 sed -s "s|CONDA_PREFIX|${dir_str}|g" $PWD/modulefiles/python/$PY_VERS1.lua > $MODULES_DIR/python/$PY_VERS1.lua
 sed -s "s|CONDA_PREFIX|${dir_str}|g" $PWD/modulefiles/python/$PY_VERS2.lua > $MODULES_DIR/python/$PY_VERS2.lua
