@@ -15,15 +15,13 @@ export NAME=`uname -n`
 echo "number of args = "
 echo $# 
 
-export CONDA_DIR=/apps
-export MODULES_DIR=/apps/modules/modulefiles
 export SYSNAME=`uname -n`
 export ERR_MSG="usage is bash install_ps.sh conda_install_prefix modules_install_prefix"
 echo "system is "$SYSNAME
 
 if [ $# != 0 ] 
    then
-     if [ $1 == "-h" -o $1 == "help" ]
+     if [ $1 == "-h" -o $1 == "help" -o "--help"]
         then
           echo $ERR_MSG
           exit 1
@@ -36,15 +34,15 @@ if [ $# != 0 ]
      fi  
 fi
 
+export CONDA_DIR=$PWD/apps
+export MODULES_DIR=$PWD/modules
+
 if [ $# == 2 ]
    then
       unset CONDA_DIR
       unset MODULES_DIR
       export CONDA_DIR=$1
       export MODULES_DIR=$2
-      mkdir -p $MODULES_DIR/modulefiles
-      mkdir -p $MODULES_DIR/modulefiles/conda
-      mkdir -p $MODULES_DIR/modulefiles/python
 else
 # try to find out what system this is and set variables
    if [ ! -d /apps  ]
@@ -59,19 +57,24 @@ else
          else
 	      unset CONDA_DIR
       	      unset MODULES_DIR
-              export CONDA_DIR=$PWD/apps
-              export MODULES_DIR=$PWD/modules/modulefiles
-              mkdir -p $PWD/apps
-              mkdir -p $PWD/modules
-              mkdir -p $PWD/modules/modulefiles
-              mkdir -p $PWD/modules/modulefiles/conda
-              mkdir -p $PWD/modules/modulefiles/python         
          fi 
    fi 
 fi
 
+
+mkdir -p $CONDA_DIR
+mkdir -p $MODULES_DIR
+mkdir -p $MODULES_DIR/modulefiles
+mkdir -p $MODULES_DIR/modulefiles/conda
+mkdir -p $MODULES_DIR/modulefiles/python
+echo "created ${CONDA_DIR}"
+echo "created ${MODULES_DIR}"
+echo "created "$MODULES_DIR/modulefiles
+echo "created "$MODULES_DIR/modulefiles/conda
+echo "created "$MODULES_DIR/modulefiles/python
+
 echo "conda will be installed in "$CONDA_DIR"/conda"
-echo "modules will be installed in "$MODULES_DIR
+echo "modules will be installed in "$MODULES_DIR"/modulefiles"
 
 if [ -d $CONDA_DIR/conda ]
    then
