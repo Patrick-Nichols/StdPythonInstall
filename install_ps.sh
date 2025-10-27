@@ -42,16 +42,20 @@ if [ $# == 2 ]
       unset MODULES_DIR
       export CONDA_DIR=$1
       export MODULES_DIR=$2
+      mkdir -p $MODULES_DIR/modulefiles
+      mkdir -p $MODULES_DIR/modulefiles/conda
+      mkdir -p $MODULES_DIR/modulefiles/python
 else
 # try to find out what system this is and set variables
    if [ ! -d /apps  ]
       then
          if [ SYSNAME == "gaea" ]
             then
+# this will be filled in if and when we get the go ahead to install on gaea
 	      unset CONDA_DIR
 	      unset MODULES_DIR
               export CONDA_DIR=/sw/gaea-c5
-              export MODULES_DIR=/sw/gaea-c5/modules/modulefiles
+              export MODULES_DIR=/sw/gaea-c5/modules
          else
 	      unset CONDA_DIR
       	      unset MODULES_DIR
@@ -81,9 +85,9 @@ bash Miniforge3-$(uname)-$(uname -m).sh -b -p ${CONDA_DIR}/conda
 echo "ran script"
 
 dir_str=$CONDA_DIR/conda
-sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/conda/$VERS.lua > $MODULES_DIR/conda/$VERS.lua
-sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS1.lua > $MODULES_DIR/python/$PY_VERS1.lua
-sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS2.lua > $MODULES_DIR/python/$PY_VERS2.lua
+sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/conda/$VERS.lua > $MODULES_DIR/modulefiles/conda/$VERS.lua
+sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS1.lua > $MODULES_DIR/modulefiles/python/$PY_VERS1.lua
+sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS2.lua > $MODULES_DIR/modulefiles/python/$PY_VERS2.lua
 echo "installed modules"
 
 source $CONDA_DIR/conda/etc/profile.d/conda.sh
