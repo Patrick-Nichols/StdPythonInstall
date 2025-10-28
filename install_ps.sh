@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -f
 export PY_VERS1=3.11
 export PY_VERS2=3.12
 export VERS=25.3.1
