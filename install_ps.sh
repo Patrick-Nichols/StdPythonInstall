@@ -1,16 +1,21 @@
-#!/bin/bash
+#!/bin/bash -f
+######################
+##  author: Patrick Nichols patrick.nichols@noaa.gov
+##  This script will install miniforge3, create and place modules and create 2 python version
+##  environments.
+##  usage is "bash install_ps.sh" absolute_path_to_conda_install absolute_path_to_modules_install"
+##  or
+##  "base install_ps.sh" will install 
+##  This script requires wget.
+##  
+######################
+
+
+
 export PY_VERS1=3.11
 export PY_VERS2=3.12
 export VERS=25.3.1
 export NAME=`uname -n`
-#export MODULES_DIR=/apps/modules/modulesfiles/miniforge3
-#export INSTALL_DIR=/apps/miniforge3
-
-#if [ NAME == "gaea*" ]
-#  then
-#    export MODULES_DIR=/sw/apps/gaea-c5/modules/modulesfiles
-#    export INSTALL_DIR=/sw/apps/gaea-c5/miniforge3
-#fi
 
 echo "number of args = "
 echo $# 
@@ -21,7 +26,7 @@ echo "system is "$SYSNAME
 
 if [ $# != 0 ] 
    then
-     if [ $1 == "-h" -o $1 == "help" -o "--help"]
+     if [ $1 == "-h" -o $1 == "help" -o $1 == "--help" ]
         then
           echo $ERR_MSG
           exit 1
@@ -34,8 +39,8 @@ if [ $# != 0 ]
      fi  
 fi
 
-export CONDA_DIR=$PWD/apps
-export MODULES_DIR=$PWD/modules
+export CONDA_DIR=/apps
+export MODULES_DIR=/apps/modules
 
 if [ $# == 2 ]
    then
