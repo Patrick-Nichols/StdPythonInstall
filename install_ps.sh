@@ -5,12 +5,14 @@
 ##  environments.
 ##  usage is "bash install_ps.sh" absolute_path_to_conda_install absolute_path_to_modules_install"
 ##  or
-##  "base install_ps.sh" will install 
-##  This script requires wget.
-##  
+##  "base install_ps.sh" will install in the usual /apps directory
+##  >> This script requires wget. <<
 ######################
+
+#### these two variables denote the python version to be installed
 export PY_VERS1=3.11
 export PY_VERS2=3.12
+#### this is the version of miniforge
 export VERS=25.3.1
 export NAME=`uname -n`
 
@@ -18,7 +20,7 @@ echo "number of args = "
 echo $# 
 
 export SYSNAME=`uname -n`
-export ERR_MSG="usage is bash install_ps.sh conda_install_prefix modules_install_prefix"
+export ERR_MSG="usage is bash install_ps.sh absolute_conda_install_prefix absolute_modules_install_prefix"
 echo "system is "$SYSNAME
 
 if [ $# != 0 ] 
@@ -63,7 +65,26 @@ else
    fi 
 fi
 
+is_absolute() {
+  if [[ "$1" == /* ]]; then
+    true
+  else
+    false
+  fi
+}
 
+if [ -o is_absolute_path $CONDA_DIR ]; then
+	echo "conda directory needs to be an absolute path!\n"
+	echo $ERR_MSG
+	exit 1
+fi
+
+if [ -o is_absolute_path $MODULES_DIR ]; then
+	echo "modules directory needs to be an absolute path!\n"
+	echo $ERR_MSG
+	exit 1
+fi
+ 
 mkdir -p $CONDA_DIR
 mkdir -p $MODULES_DIR
 mkdir -p $MODULES_DIR/modulefiles
@@ -90,9 +111,9 @@ bash Miniforge3-$(uname)-$(uname -m).sh -b -p ${CONDA_DIR}/conda
 echo "ran script"
 
 dir_str=$CONDA_DIR/conda
-sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/conda/$VERS.lua > $MODULES_DIR/modulefiles/conda/$VERS.lua
-sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS1.lua > $MODULES_DIR/modulefiles/python/$PY_VERS1.lua
-sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS2.lua > $MODULES_DIR/modulefiles/python/$PY_VERS2.lua
+sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/conda/$VERS.lua.temp > $MODULES_DIR/modulefiles/conda/$VERS.lua
+sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS1.lua.temp > $MODULES_DIR/modulefiles/python/$PY_VERS1.lua
+sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS2.lua.temp > $MODULES_DIR/modulefiles/python/$PY_VERS2.lua
 echo "installed modules"
 
 source $CONDA_DIR/conda/etc/profile.d/conda.sh
