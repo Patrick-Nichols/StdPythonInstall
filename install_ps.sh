@@ -65,21 +65,18 @@ else
    fi 
 fi
 
-is_absolute() {
-  if [[ "$1" == /* ]]; then
-    true
-  else
-    false
-  fi
-}
 
-if [ -o is_absolute_path $CONDA_DIR ]; then
+if [[ "$CONDA_DIR" == /* ]]; then
+	echo "conda will be installed in "$CONDA_DIR"/conda"
+else
 	echo "conda directory needs to be an absolute path!\n"
 	echo $ERR_MSG
 	exit 1
 fi
 
-if [ -o is_absolute_path $MODULES_DIR ]; then
+if [[ "$MODULES_DIR" == /* ]]; then
+	echo "modules will be installed in "$MODULES_DIR"/modulefiles"
+else
 	echo "modules directory needs to be an absolute path!\n"
 	echo $ERR_MSG
 	exit 1
@@ -96,8 +93,6 @@ echo "created "$MODULES_DIR/modulefiles
 echo "created "$MODULES_DIR/modulefiles/conda
 echo "created "$MODULES_DIR/modulefiles/python
 
-echo "conda will be installed in "$CONDA_DIR"/conda"
-echo "modules will be installed in "$MODULES_DIR"/modulefiles"
 
 if [ -d $CONDA_DIR/conda ]
    then
