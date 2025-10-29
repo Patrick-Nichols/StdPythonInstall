@@ -19,6 +19,13 @@ export NAME=`uname -n`
 echo "number of args = "
 echo $# 
 
+if hash wget 2>/dev/null; then
+	echo "wget found"
+else
+	echo "wget is not found exiting"
+	exit 1
+fi
+
 export SYSNAME=`uname -n`
 export ERR_MSG="usage is bash install_ps.sh absolute_conda_install_prefix absolute_modules_install_prefix"
 echo "system is "$SYSNAME

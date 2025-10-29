@@ -5,7 +5,7 @@
 ##  environments.
 ##  usage is "bash install_ps.sh" absolute_path_to_conda_install absolute_path_to_modules_install"
 ##  or
-##  "base install_ps.sh" will install 
+##  "base install_ps.sh" will install in the /apps directory
 ##  This script requires wget.
 ##  
 ######################
