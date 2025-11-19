@@ -8,7 +8,7 @@
 ##  "base install_ps.sh" will install in the usual /apps directory
 ##  >> This script requires wget. <<
 ######################
-
+set -xe
 #### these two variables denote the python version to be installed
 export PY_VERS1=3.11
 export PY_VERS2=3.12
@@ -118,7 +118,69 @@ sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS1.lua
 sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS2.lua.temp > $MODULES_DIR/modulefiles/python/$PY_VERS2.lua
 echo "installed modules"
 
-source $CONDA_DIR/conda/etc/profile.d/conda.sh
-conda create -y -n $PY_VERS1 python=$PY_VERS1
-conda create -y -n $PY_VERS2 python=$PY_VERS2
-echo "created python environments"
+
+echo "confirming installation and creating environments"
+############################################
+## if conda has been installed in the correct place
+## we create the environments for our python versions
+##
+############################################
+if [ -e $CONDA_DIR/conda/etc/profile.d/conda.sh ]
+    then
+        source $CONDA_DIR/conda/etc/profile.d/conda.sh
+        conda create -y -n $PY_VERS1 python=$PY_VERS1
+        conda create -y -n $PY_VERS2 python=$PY_VERS2
+        echo "created python environments"
+else
+    echo "installation failed no conda directory"
+    if [ -d $CONDA_DIR/conda ]
+       then
+         rm -fr $CONDA_DIR/conda  
+    fi
+    exit 1
+fi
+
+####
+## check to see if modules loaded everything right
+####
+source $MODULESHOME/init/bash
+module use $MODULES_DIR/modulefiles
+module load conda
+exp_ans="$CONDA_DIR/conda/bin/conda"
+ans=$(which conda)
+if [ "$ans" == "$exp_ans" ]
+    then
+        echo "conda is installed correctly"
+else
+    echo "conda not found"
+    exit 1
+fi
+
+module load python/$PY_VERS1
+unset exp_ans
+unset ans
+exp_ans="$CONDA_DIR/conda/envs/$PY_VERS1/bin/python3"
+ans=$(which python3)
+if [ "$ans" = "$exp_ans" ]
+    then
+        echo "python is installed correctly"
+else
+    echo "python not found"
+    exit 1
+fi
+
+module unload python
+module load python/$PY_VERS2
+unset exp_ans
+unset ans
+exp_ans="$CONDA_DIR/conda/envs/$PY_VERS2/bin/python3"
+ans=$(which python3)
+if [ "$ans" == "$exp_ans" ]
+    then
+        echo "python is installed correctly"
+else
+    echo "python not found"
+    exit 1
+fi
+echo "all done"
+exit 0
