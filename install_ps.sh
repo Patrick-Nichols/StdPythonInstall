@@ -1,4 +1,4 @@
-#!/bin/bash -f
+#!/bin/bash --norc
 ######################
 ##  author: Patrick Nichols patrick.nichols@noaa.gov
 ##  This script will install miniforge3, create and place modules and create 2 python version
