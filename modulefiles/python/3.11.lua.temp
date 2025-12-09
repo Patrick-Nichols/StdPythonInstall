@@ -1,11 +1,12 @@
-depends_on("conda")
+family("python")
 
-local conda_dir = INSTALL_PREFIX
+conflict("cray-python","PythonEnv-noaa")
 
-if ( myShellType() == "csh" ) then
-    local conda_cmd=conda_dir.."/etc/profile.d/conda.csh"
---    execute(cmd="source '"..conda_cmd.."'",modeA={"load"
-    execute{cmd="source "..conda_cmd.." activate 3.11",modeA={"load"}}
-else
-    execute{cmd="conda activate 3.11",modeA={"load"}}
-end
+local conda_dir= INSTALL_PREFIX
+
+local env_dir=pathJoin(conda_dir,"envs/3.11")
+local bin_dir=pathJoin(env_dir,"bin");
+local lib_dir=pathJoin(env_dir,"lib");
+prepend_path("PATH",bin_dir)
+prepend_path("LD_LIBRARY_PATH",lib_dir)
+unsetenv("PYTHONSTARTUP")
