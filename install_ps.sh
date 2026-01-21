@@ -10,8 +10,8 @@
 ######################
 set -xe
 #### these two variables denote the python version to be installed
-export PY_VERS1=3.11
-export PY_VERS2=3.12
+export PY_VERS1=3.12
+export PY_VERS2=3.13
 #### this is the version of miniforge
 export VERS=25.3.1
 export NAME=`uname -n`
