@@ -7,6 +7,14 @@
 ##  or
 ##  "base install_ps.sh" will install in the usual /apps directory
 ##  >> This script requires wget. <<
+##
+##  Recommended installation directories
+##  Hera, Oso, Ursa   /apps /apps/modules
+##  Geae  /sw/gaea-c5 /sw/gaea-c5/modulefiles/
+## 
+##  Role accounts should bne used for installs 
+##    role.apps
+##    role-apps
 ######################
 set -xe
 #### these two variables denote the python version to be installed
