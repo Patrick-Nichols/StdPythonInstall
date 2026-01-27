@@ -1,0 +1,12 @@
+family("python")
+
+conflict("cray-python","PythonEnv-noaa")
+
+local conda_dir= INSTALL_PREFIX
+
+local env_dir=pathJoin(conda_dir,"envs/3.13")
+local bin_dir=pathJoin(env_dir,"bin");
+local lib_dir=pathJoin(env_dir,"lib");
+prepend_path("PATH",bin_dir)
+prepend_path("LD_LIBRARY_PATH",lib_dir)
+unsetenv("PYTHONSTARTUP")
