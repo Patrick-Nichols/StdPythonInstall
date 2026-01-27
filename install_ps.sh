@@ -9,9 +9,9 @@
 ##  >> This script requires wget. <<
 ##
 ##  Recommended installation directories
-##  Hera, Oso, Ursa   /apps /apps/modules
-##  Geae  /sw/gaea-c5 /sw/gaea-c5/modulefiles/
-## 
+##  Hera, Oso, Ursa   /apps /apps/modulefiles
+##  Geae  /ncrc/usw /sw/gaea-c5/modulefiles/
+##  
 ##  Role accounts should bne used for installs 
 ##    role.apps
 ##    role-apps
@@ -71,8 +71,8 @@ else
 # this will be filled in if and when we get the go ahead to install on gaea
 	      unset CONDA_DIR
 	      unset MODULES_DIR
-              export CONDA_DIR=/sw/gaea-c5
-              export MODULES_DIR=/sw/gaea-c5/modules
+              export CONDA_DIR=/ncrc/usw
+              export MODULES_DIR=/sw/gaea-c5/modulefiles
          else
 	      unset CONDA_DIR
       	      unset MODULES_DIR
@@ -82,7 +82,7 @@ fi
 
 
 if [[ "$CONDA_DIR" == /* ]]; then
-	echo "conda will be installed in "$CONDA_DIR"/conda"
+	echo "conda will be installed in "$CONDA_DIR"/rdhpcs-conda"
 else
 	echo "conda directory needs to be an absolute path!\n"
 	echo $ERR_MSG
@@ -100,30 +100,30 @@ fi
 mkdir -p $CONDA_DIR
 mkdir -p $MODULES_DIR
 mkdir -p $MODULES_DIR/modulefiles
-mkdir -p $MODULES_DIR/modulefiles/conda
-mkdir -p $MODULES_DIR/modulefiles/python
+mkdir -p $MODULES_DIR/modulefiles/rdhpcs-conda
+mkdir -p $MODULES_DIR/modulefiles/rdhpcs-python
 echo "created ${CONDA_DIR}"
 echo "created ${MODULES_DIR}"
 echo "created "$MODULES_DIR/modulefiles
-echo "created "$MODULES_DIR/modulefiles/conda
-echo "created "$MODULES_DIR/modulefiles/python
+echo "created "$MODULES_DIR/modulefiles/rdhpcs-conda
+echo "created "$MODULES_DIR/modulefiles/rdhpcs-python
 
 
-if [ -d $CONDA_DIR/conda ]
+if [ -d $CONDA_DIR/rdhpcs-conda ]
    then
-     rm -fr $CONDA_DIR/conda
+     rm -fr $CONDA_DIR/rdhpcs-conda
 fi
 
 wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
 
 echo "downloaded script"
-bash Miniforge3-$(uname)-$(uname -m).sh -b -p ${CONDA_DIR}/conda
+bash Miniforge3-$(uname)-$(uname -m).sh -b -p ${CONDA_DIR}/rdhpcs-conda
 echo "ran script"
 
-dir_str=$CONDA_DIR/conda
-sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/conda/$VERS.lua.temp > $MODULES_DIR/modulefiles/conda/$VERS.lua
-sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS1.lua.temp > $MODULES_DIR/modulefiles/python/$PY_VERS1.lua
-sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS2.lua.temp > $MODULES_DIR/modulefiles/python/$PY_VERS2.lua
+dir_str=$CONDA_DIR/rdhpcs-conda
+sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/conda/$VERS.lua.temp > $MODULES_DIR/modulefiles/rdhpcs-conda/$VERS.lua
+sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS1.lua.temp > $MODULES_DIR/modulefiles/rdhpcs-python/$PY_VERS1.lua
+sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS2.lua.temp > $MODULES_DIR/modulefiles/rdhpcs-python/$PY_VERS2.lua
 echo "installed modules"
 
 
@@ -133,17 +133,17 @@ echo "confirming installation and creating environments"
 ## we create the environments for our python versions
 ##
 ############################################
-if [ -e $CONDA_DIR/conda/etc/profile.d/conda.sh ]
+if [ -e $CONDA_DIR/rdhpcs-conda/etc/profile.d/conda.sh ]
     then
-        source $CONDA_DIR/conda/etc/profile.d/conda.sh
+        source $CONDA_DIR/rdhpcs-conda/etc/profile.d/conda.sh
         conda create -y -n $PY_VERS1 python=$PY_VERS1
         conda create -y -n $PY_VERS2 python=$PY_VERS2
         echo "created python environments"
 else
     echo "installation failed no conda directory"
-    if [ -d $CONDA_DIR/conda ]
+    if [ -d $CONDA_DIR/rdhpcs-conda ]
        then
-         rm -fr $CONDA_DIR/conda  
+         rm -fr $CONDA_DIR/rdhpcs-conda  
     fi
     exit 1
 fi
@@ -153,8 +153,8 @@ fi
 ####
 source $MODULESHOME/init/bash
 module use $MODULES_DIR/modulefiles
-module load conda
-exp_ans="$CONDA_DIR/conda/bin/conda"
+module load rdhpcs-conda
+exp_ans="$CONDA_DIR/rdhpcs-conda/bin/conda"
 ans=$(which conda)
 if [ "$ans" == "$exp_ans" ]
     then
@@ -164,10 +164,10 @@ else
     exit 1
 fi
 
-module load python/$PY_VERS1
+module load rdhpcs-python/$PY_VERS1
 unset exp_ans
 unset ans
-exp_ans="$CONDA_DIR/conda/envs/$PY_VERS1/bin/python3"
+exp_ans="$CONDA_DIR/rdhpcs-conda/envs/$PY_VERS1/bin/python3"
 ans=$(which python3)
 if [ "$ans" = "$exp_ans" ]
     then
@@ -177,11 +177,11 @@ else
     exit 1
 fi
 
-module unload python
-module load python/$PY_VERS2
+module unload rdhpcs-python
+module load rdhpcs-python/$PY_VERS2
 unset exp_ans
 unset ans
-exp_ans="$CONDA_DIR/conda/envs/$PY_VERS2/bin/python3"
+exp_ans="$CONDA_DIR/rdhpcs-conda/envs/$PY_VERS2/bin/python3"
 ans=$(which python3)
 if [ "$ans" == "$exp_ans" ]
     then
