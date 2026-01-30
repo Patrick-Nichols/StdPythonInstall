@@ -136,6 +136,7 @@ echo "confirming installation and creating environments"
 if [ -e $CONDA_DIR/rdhpcs-conda/etc/profile.d/conda.sh ]
     then
         source $CONDA_DIR/rdhpcs-conda/etc/profile.d/conda.sh
+	conda config --set notify_outdated_conda false
         conda create -y -n $PY_VERS1 python=$PY_VERS1
         conda create -y -n $PY_VERS2 python=$PY_VERS2
         echo "created python environments"
@@ -143,7 +144,7 @@ else
     echo "installation failed no conda directory"
     if [ -d $CONDA_DIR/rdhpcs-conda ]
        then
-         rm -fr $CONDA_DIR/rdhpcs-conda  
+         rm -fr $CONDA_DIR/rdhpcs-conda/*
     fi
     exit 1
 fi
