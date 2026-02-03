@@ -155,8 +155,8 @@ fi
 source $MODULESHOME/init/bash
 module use $MODULES_DIR/modulefiles
 module load rdhpcs-conda
-exp_ans="$CONDA_DIR/rdhpcs-conda/bin/conda"
-ans=$(which conda)
+exp_ans="$CONDA_DIR/rdhpcs-conda/bin/python3"
+ans=$(which python3)
 if [ "$ans" == "$exp_ans" ]
     then
         echo "conda is installed correctly"
