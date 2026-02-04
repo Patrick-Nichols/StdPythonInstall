@@ -108,16 +108,10 @@ echo "created "$MODULES_DIR/modulefiles
 echo "created "$MODULES_DIR/modulefiles/rdhpcs-conda
 echo "created "$MODULES_DIR/modulefiles/rdhpcs-python
 
-
-if [ -d $CONDA_DIR/rdhpcs-conda ]
-   then
-     rm -fr $CONDA_DIR/rdhpcs-conda
-fi
-
 wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
 
 echo "downloaded script"
-bash Miniforge3-$(uname)-$(uname -m).sh -b -p ${CONDA_DIR}/rdhpcs-conda
+bash Miniforge3-$(uname)-$(uname -m).sh -f -b -p ${CONDA_DIR}/rdhpcs-conda
 echo "ran script"
 
 dir_str=$CONDA_DIR/rdhpcs-conda
