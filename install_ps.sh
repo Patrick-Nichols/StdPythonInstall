@@ -15,6 +15,9 @@
 ##  Role accounts should bne used for installs 
 ##    role.apps
 ##    role-apps
+#######################################
+###  THIS installation REQUIRES LMOD MODULES and wget
+###  The MODULE FILES CAN NOT BE READ BY ENV MODULES
 ######################
 set -xe
 #### these two variables denote the python version to be installed
