@@ -4,7 +4,7 @@ local conda_dir = INSTALL_PREFIX
 --prepend_path("PATH", pathJoin(conda_dir,"condabin"))
 if ( myShellType() == "csh") then
    local conda_cmd=pathJoin(conda_dir,"/etc/profile.d/conda.csh")
-   execute{cmd="source "..conda_cmd..";source "..conda_cmd.." activate", modeA={"load"}}
+   execute{cmd="source "..conda_cmd.. " activate", modeA={"load"}}
 else
    execute{cmd="source '"..pathJoin(conda_dir, "etc/profile.d/conda."..myShellType()).."'; conda activate base", modeA={"load"}}
 end

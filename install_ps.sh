@@ -10,11 +10,14 @@
 ##
 ##  Recommended installation directories
 ##  Hera, Oso, Ursa   /apps /apps/modulefiles
-##  Geae  /ncrc/usw /sw/gaea-c5/modulefiles/
+##  Gaea  /ncrc/usw /ncrc/usw/rdhpcs-software/
+##  PPan   /app /apps/Moddules
+##  MSU /apps/contrib /apps/contrib
 ##  
 ##  Role accounts should bne used for installs 
 ##    role.apps
 ##    role-apps
+##    oar.gfdl.sw  on ppan
 ######################
 set -xe
 #### these two variables denote the python version to be installed
