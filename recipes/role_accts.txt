@@ -1,0 +1,8 @@
+system               account
+-----------------------------
+hera/juno      |   role.apps
+ursa/oso       |   role.apps
+gaea           |   role.apps
+ppan           |   oar.gfdl.sw
+orion/hercules |   role-noaatest
+

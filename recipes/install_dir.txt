@@ -1,0 +1,8 @@
+system            bin_prefix                                modules_prefix
+-------------------------------------------------------------------------------------
+hera/juno      |  /apps                                  | /apps/modules
+ursa/oso       |  /apps                                  | /apps/modules            
+gaea           |  /autofs/ncrc-svm1_usw/rdhpcs/software  | /auto/ncrc-svm1_usw/rdhpcs
+ppan           |  /apps                                  | /apps/Modules                 
+orion/hercules |  /app/contrib                           | /apps/contrib 
+
