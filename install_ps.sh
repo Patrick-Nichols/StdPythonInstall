@@ -27,7 +27,7 @@ set -xe
 export PY_VERS1=3.12
 export PY_VERS2=3.13
 #### this is the version of miniforge
-export VERS=25.3.1
+export VERS=25.11.0
 export NAME=`uname -n`
 
 echo "number of args = "
@@ -114,14 +114,15 @@ echo "created "$MODULES_DIR/modulefiles
 echo "created "$MODULES_DIR/modulefiles/rdhpcs-conda
 echo "created "$MODULES_DIR/modulefiles/rdhpcs-python
 
-wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+#### remove this for now and use pre downloaded script to keep miniforge version constant
+#wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
 
 echo "downloaded script"
 bash Miniforge3-$(uname)-$(uname -m).sh -f -b -p ${CONDA_DIR}/rdhpcs-conda
 echo "ran script"
 
 dir_str=$CONDA_DIR/rdhpcs-conda
-sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/conda/$VERS.lua.temp > $MODULES_DIR/modulefiles/rdhpcs-conda/$VERS.lua
+sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/conda/conda.lua.temp > $MODULES_DIR/modulefiles/rdhpcs-conda/$VERS.lua
 sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS1.lua.temp > $MODULES_DIR/modulefiles/rdhpcs-python/$PY_VERS1.lua
 sed -s "s|INSTALL_PREFIX|\"${dir_str}\"|g" $PWD/modulefiles/python/$PY_VERS2.lua.temp > $MODULES_DIR/modulefiles/rdhpcs-python/$PY_VERS2.lua
 echo "installed modules"
