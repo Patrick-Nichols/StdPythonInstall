@@ -1,0 +1,94 @@
+
+
+4/2/2026  put installation instructions into README   
+
+commit d15634b2fd721f7dd25465aa716cb07fcccb5fb4
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Thu Apr 2 14:21:10 2026 -0400
+
+    adding change log
+
+commit 3525da5b8b0290cdddc09352b80753ca5c606150
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Thu Apr 2 18:02:29 2026 +0000
+
+    adding in fixed for install_ps.sh - use static Miniforge script instead
+of downloaded one.
+
+commit a560c814a3e657bbba07821857daa58e7e0c576c
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Thu Apr 2 17:54:54 2026 +0000
+
+    updating repo to be in sync with the external one added lsf and miniforge3 install script, also recipes
+
+commit 24b2220460d5e0f5c1443ca9403c9136d0d96f3c
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Fri Dec 19 18:37:38 2025 +0000
+
+    fixes suggested by Seth and Dan to make script more modular
+
+commit 62af4bc11b584389c411f16ef8a5e4652ff10b4d
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Tue Dec 2 20:38:37 2025 +0000
+
+    replace bash -f with --norc
+
+commit 2825fb87f98a770a911da82a73e37abc2f9a5881
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Mon Dec 1 19:02:35 2025 +0000
+
+    fixed which conda bug
+
+commit 505bb5f5f12cde73807d6f3263817763907f8fed
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Wed Nov 19 17:07:57 2025 +0000
+
+    put in saniity checks
+
+commit 8735ea7cb98ceef22db0ee4d33cce1c3374f3af0
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Mon Nov 10 14:25:39 2025 -0500
+
+    Upload New File
+
+commit 74b7ffc93fffbddf2872c41433df81104daed152
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Mon Nov 10 14:25:05 2025 -0500
+
+    Upload New File
+
+commit aff38cac79c0f71adf361d1957f8fc1b1b614ab2
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Mon Nov 10 14:24:36 2025 -0500
+
+    Upload New File
+
+commit 5e026196a39051a86053596b129c82597c3743c8
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Mon Nov 10 14:23:21 2025 -0500
+
+    Add new directory
+
+commit b202ca7b7e2ced91eaf62e93abd5cae44b41cbd3
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Mon Nov 10 14:23:08 2025 -0500
+
+    Add new directory
+
+commit 56072e8f1b0370088d114184cc9302d8124473dd
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Mon Nov 10 14:22:46 2025 -0500
+
+    Add new directory
+
+commit 1eeccd7f580fefef2dc9893e805ba2d6c118822c
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Mon Nov 10 14:20:40 2025 -0500
+
+    Added in installation script
+
+commit 6cdfdee5cced0f7eee01a633f212301c0e029dc6
+Author: patrick.nichols <patrick.nichols@noaa.gov>
+Date:   Thu Nov 6 21:02:18 2025 +0000
+
+    Initial commit
